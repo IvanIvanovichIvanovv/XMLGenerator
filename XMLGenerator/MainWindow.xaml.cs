@@ -46,6 +46,7 @@ namespace XMLGenerator
             defaultXML[9] = $"  <memory unit='GiB'>{VM.memoryRAM}</memory>";
             defaultXML[10]= $"  <currentMemory unit='GiB'>{VM.memoryRAM}</currentMemory>";
             defaultXML[11] = $"  <vcpu placement='static'>{VM.coresCPU}</vcpu>";
+            defaultXML[13] = $"    <type arch='x86_64' machine='pc'>hvm</type>";
             defaultXML[37] = $"      <mac address='{VM.macAddress}'/> ";
             defaultXML[44] = $"        <address type='pci' domain='0x0000' bus='0x{VM.pci.bus}' slot='0x{VM.pci.slot}' function='0x{VM.pci.function}'/>";
             defaultXML[56] = $"    <graphics type='vnc' port='{VM.portVNC}' autoport='no' listen='127.0.0.1'>";
