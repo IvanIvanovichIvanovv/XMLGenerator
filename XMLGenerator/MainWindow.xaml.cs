@@ -53,7 +53,7 @@ namespace XMLGenerator
 
             SaveFileDialog file = new SaveFileDialog
             {
-                FileName = $"{VM.name}.xml",
+                FileName = $"uXXYY.xml",
                 Filter = "XML-File | *.xml"
             };
             file.ShowDialog();
