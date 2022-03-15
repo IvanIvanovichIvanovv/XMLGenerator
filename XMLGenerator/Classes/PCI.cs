@@ -8,9 +8,9 @@ namespace XMLGenerator.Classes
 {
     public class PCI
     {
-        private string bus;
-        private string slot;
-        private int function;
+        public string bus;
+        public string slot;
+        public int function;
 
         public PCI(string bus, string slot, int funtion) 
         {
@@ -20,7 +20,7 @@ namespace XMLGenerator.Classes
         }
         public override string ToString()
         {
-            return $"bus='0x{bus}' slot='0x{slot}' function='0x{function}'";
+            return $"{bus},{slot},{function}";
         }
     }
 }

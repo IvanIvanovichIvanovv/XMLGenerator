@@ -35,7 +35,7 @@ or other application using the libvirt API.
     <controller type='pci' index='0' model='pci-root'/>
     <controller type='usb' index='0' model='none'/>
     <interface type='bridge'>
-      <mac address=%MAC%/> 
+      <mac address='%MAC%'/> 
       <source bridge='br0'/>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
