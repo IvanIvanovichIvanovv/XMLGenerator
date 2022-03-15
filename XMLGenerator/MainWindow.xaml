@@ -1,0 +1,19 @@
+﻿<Window x:Class="XMLGenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XMLGenerator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <ComboBox x:Name="cb_VMs" Margin="10,45,670,367"/>
+        <Label x:Name="lbl_Name" Content="Name" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbl_RAM" Content="RAM" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbl_CPU" Content="CPU cores" HorizontalAlignment="Left" Margin="90,100,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbl_MAC" Content="mac" HorizontalAlignment="Left" Margin="130,100,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbl_PCI" Content="PCI" HorizontalAlignment="Left" Margin="170,100,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbl_VNC" Content="VNC port" HorizontalAlignment="Left" Margin="210,100,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
