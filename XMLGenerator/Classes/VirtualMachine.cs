@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XMLGenerator.Classes
+﻿namespace XMLGenerator.Classes
 {
     public class VirtualMachine
     {
@@ -24,12 +18,12 @@ namespace XMLGenerator.Classes
             this.pci = pci;
             this.portVNC = portVNC;
         }
-        public VirtualMachine(string name, int memoryRAM, int coresCPU, string macAddress, string BUS, string SLOT, int Function, int portVNC) 
+        public VirtualMachine(string name, int memoryRAM, int coresCPU, string macAddress, string BUS, string SLOT, int Function, int portVNC)
         {
-            this.name=name;
+            this.name = name;
             this.memoryRAM = memoryRAM;
-            this.coresCPU=coresCPU;
-            this.macAddress=macAddress;
+            this.coresCPU = coresCPU;
+            this.macAddress = macAddress;
             this.pci = new PCI(BUS, SLOT, Function);
             this.portVNC = portVNC;
         }

@@ -5,27 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XMLGenerator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="167" Width="340">
+        Title="XMLGEN" Height="167" Width="340" ResizeMode="CanMinimize">
     <Grid>
-        <ComboBox x:Name="cb_VMs" Margin="10,9,0,0" HorizontalAlignment="Left" Width="101" Height="20" VerticalAlignment="Top" SelectionChanged="cb_VMs_SelectionChanged"/>
+        <ComboBox x:Name="cb_VMs" Margin="10,9,0,0" HorizontalAlignment="Left" Width="84" Height="20" VerticalAlignment="Top" SelectionChanged="cb_VMs_SelectionChanged"/>
         <Label x:Name="lbl_Name" Content="Name" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbl_RAM" Content="RAM" HorizontalAlignment="Left" Margin="75,37,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbl_CPU" Content="CPU cores" HorizontalAlignment="Left" Margin="116,37,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbl_MAC" Content="mac" HorizontalAlignment="Left" Margin="185,37,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbl_VNC" Content="VNC port:" HorizontalAlignment="Left" Margin="206,86,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tb_Name" HorizontalAlignment="Left" Margin="10,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="60"/>
-        <TextBox x:Name="tb_RAM" HorizontalAlignment="Left" Margin="77,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="34"/>
-        <TextBox x:Name="tb_CPU" HorizontalAlignment="Left" Margin="120,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="60"/>
-        <TextBox x:Name="tb_MAC" HorizontalAlignment="Left" Margin="185,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tb_BUS" HorizontalAlignment="Left" Margin="40,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="30"/>
-        <TextBox x:Name="tb_Slot" HorizontalAlignment="Left" Margin="104,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="26"/>
-        <TextBox x:Name="tb_Function" HorizontalAlignment="Left" Margin="174,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="27"/>
-        <TextBox x:Name="tb_VNC" HorizontalAlignment="Left" Margin="270,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35"/>
+        <TextBox x:Name="tb_RAM" MaxLength="3" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Margin="77,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="34"/>
+        <TextBox x:Name="tb_CPU" MaxLength="3" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Margin="120,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="60"/>
+        <TextBox x:Name="tb_MAC" MaxLength="17" PreviewTextInput="MACValidationTextBox" HorizontalAlignment="Left" Margin="185,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tb_BUS" MaxLength="2" HorizontalAlignment="Left" Margin="40,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="30"/>
+        <TextBox x:Name="tb_Slot" MaxLength="2" HorizontalAlignment="Left" Margin="104,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="26"/>
+        <TextBox x:Name="tb_Function" MaxLength="1" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Margin="174,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="27"/>
+        <TextBox x:Name="tb_VNC" MaxLength="4" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Margin="270,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35"/>
         <Label x:Name="lbl_PCI" Content="PCI:" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbl_BUS" Content="BUS:" HorizontalAlignment="Left" Margin="70,87,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbl_SLOT" Content="SLOT:" HorizontalAlignment="Left" Margin="135,87,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btn_SaveAsNew" Content="Save as new VM" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" Click="btn_SaveAsNew_Click"/>
-        <Button x:Name="btn_GenerateXML" Content="Generate XML" HorizontalAlignment="Left" Margin="226,10,0,0" VerticalAlignment="Top" Click="btn_GenerateXML_Click"/>
+        <Button x:Name="btn_SaveAsNew" Content="Save as new VM" HorizontalAlignment="Left" Margin="94,9,0,0" VerticalAlignment="Top" Click="btn_SaveAsNew_Click"/>
+        <Button x:Name="btn_GenerateXML" Content="Generate XML" HorizontalAlignment="Left" Margin="227,9,0,0" VerticalAlignment="Top" Click="btn_GenerateXML_Click"/>
+        <Button x:Name="btn_Delete" Content="Del VM" HorizontalAlignment="Left" Margin="184,9,0,0" VerticalAlignment="Top" Click="btn_DelVM_Click"/>
 
     </Grid>
 </Window>

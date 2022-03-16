@@ -1,19 +1,11 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.Win32;
 using XMLGenerator.Classes;
 
 namespace XMLGenerator
@@ -23,8 +15,8 @@ namespace XMLGenerator
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<string> defaultXML =new List<string>();
-        public List<VirtualMachine> Presets=new List<VirtualMachine>();
+        public List<string> defaultXML = new List<string>();
+        public List<VirtualMachine> Presets = new List<VirtualMachine>();
         public MainWindow()
         {
             InitializeComponent();
@@ -44,7 +36,7 @@ namespace XMLGenerator
             VirtualMachine VM = new VirtualMachine(tb_Name.Text, Convert.ToInt32(tb_RAM.Text), Convert.ToInt32(tb_CPU.Text), tb_MAC.Text, tb_BUS.Text, tb_Slot.Text, Convert.ToInt32(tb_Function.Text), Convert.ToInt32(tb_VNC.Text));
             defaultXML[8] = $"  <name>{VM.name}</name>";
             defaultXML[9] = $"  <memory unit='GiB'>{VM.memoryRAM}</memory>";
-            defaultXML[10]= $"  <currentMemory unit='GiB'>{VM.memoryRAM}</currentMemory>";
+            defaultXML[10] = $"  <currentMemory unit='GiB'>{VM.memoryRAM}</currentMemory>";
             defaultXML[11] = $"  <vcpu placement='static'>{VM.coresCPU}</vcpu>";
             defaultXML[13] = $"    <type arch='x86_64' machine='pc'>hvm</type>";
             defaultXML[37] = $"      <mac address='{VM.macAddress}'/> ";
@@ -53,7 +45,7 @@ namespace XMLGenerator
 
             SaveFileDialog file = new SaveFileDialog
             {
-                FileName = $"uXXYY.xml",
+                FileName = $"{VM.name}.xml",
                 Filter = "XML-File | *.xml"
             };
             file.ShowDialog();
@@ -70,19 +62,30 @@ namespace XMLGenerator
         private void btn_SaveAsNew_Click(object sender, RoutedEventArgs e)
         {
             VirtualMachine VM = new VirtualMachine(tb_Name.Text, Convert.ToInt32(tb_RAM.Text), Convert.ToInt32(tb_CPU.Text), tb_MAC.Text, tb_BUS.Text, tb_Slot.Text, Convert.ToInt32(tb_Function.Text), Convert.ToInt32(tb_VNC.Text));
-            using (StreamWriter filewrite = new StreamWriter(@"Presets.csv"))
+
+            Presets.Add(VM);
+            cb_VMs.Items.Add(VM.name);
+            cb_VMs.SelectedIndex = cb_VMs.Items.Count - 1;
+
+            SavePresets();
+        }
+
+        private void btn_DelVM_Click(object sender,RoutedEventArgs e) 
+        {
+            int index = cb_VMs.SelectedIndex;
+            if (index != 0) 
             {
-                for (int i = 0; i < Presets.Count; i++)
-                {
-                    filewrite.WriteLine(String.Format(Presets[i].ToString()));
-                }
-                filewrite.WriteLine(String.Format(VM.ToString()));
+                cb_VMs.SelectedIndex = 0;
             }
-            cb_VMs.Items.Clear();
-            for (int i = 0; i < Presets.Count; i++)
+            else if (index == 0&&Presets.Count>=2) 
             {
-                cb_VMs.Items.Add(Presets[i].name);
+                cb_VMs.SelectedIndex=1;
             }
+
+            Presets.RemoveAt(index);
+            cb_VMs.Items.RemoveAt(index);
+
+            SavePresets();
         }
         public void ReadDefaultXML(List<string> XML)
         {
@@ -96,14 +99,14 @@ namespace XMLGenerator
                 }
             }
         }
-        public void ReadPresets(List<VirtualMachine> Presets) 
+        public void ReadPresets(List<VirtualMachine> Presets)
         {
             using (var reader = new StreamReader(@"Presets.csv"))
             {
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
-                    var values=line.Split(',');
+                    var values = line.Split(',');
                     Presets.Add(new VirtualMachine(values[0], Convert.ToInt32(values[1]), Convert.ToInt32(values[2]), values[3], values[4], values[5], Convert.ToInt32(values[6]), Convert.ToInt32(values[7])));
                 }
             }
@@ -111,19 +114,35 @@ namespace XMLGenerator
 
         private void cb_VMs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            int selectedIndex = cb_VMs.SelectedIndex;
+            tb_Name.Text = Presets[selectedIndex].name;
+            tb_RAM.Text = Presets[selectedIndex].memoryRAM.ToString();
+            tb_CPU.Text = Presets[selectedIndex].coresCPU.ToString();
+            tb_MAC.Text = Presets[selectedIndex].macAddress;
+            tb_BUS.Text = Presets[selectedIndex].pci.bus;
+            tb_Slot.Text = Presets[selectedIndex].pci.slot;
+            tb_Function.Text = Presets[selectedIndex].pci.function.ToString();
+            tb_VNC.Text = Presets[selectedIndex].portVNC.ToString();
+        }
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        private void MACValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9a-f:]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        public void SavePresets() 
+        {
+            using (StreamWriter filewrite = new StreamWriter(@"Presets.csv"))
             {
-                int selectedIndex = cb_VMs.SelectedIndex;
-                tb_Name.Text = Presets[selectedIndex].name;
-                tb_RAM.Text = Presets[selectedIndex].memoryRAM.ToString();
-                tb_CPU.Text = Presets[selectedIndex].coresCPU.ToString();
-                tb_MAC.Text = Presets[selectedIndex].macAddress;
-                tb_BUS.Text = Presets[selectedIndex].pci.bus;
-                tb_Slot.Text = Presets[selectedIndex].pci.slot;
-                tb_Function.Text = Presets[selectedIndex].pci.function.ToString();
-                tb_VNC.Text = Presets[selectedIndex].portVNC.ToString();
+                for (int i = 0; i < Presets.Count; i++)
+                {
+                    filewrite.WriteLine(String.Format(Presets[i].ToString()));
+                }
             }
-            catch (Exception ex) { }
         }
     }
 }
